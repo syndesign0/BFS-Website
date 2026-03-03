@@ -5,7 +5,7 @@
 
 <template>
 
-<h1>Diseño web y apps interactivas</h1>
+<h1>BFS Website</h1>
 
 
 </template>
