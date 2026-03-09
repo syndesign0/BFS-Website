@@ -105,6 +105,21 @@ const cerrarModal = () => {
       </div>
     </section>
 
+    <section v-if="proyecto.videoYoutube" class="space-y-4">
+  <h2 class="text-2xl font-semibold">Vídeo</h2>
+
+  <div class="rounded-2xl overflow-hidden border">
+    <iframe
+      class="w-full aspect-video"
+      :src="proyecto.videoYoutube"
+      title="Vídeo del proyecto"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</section>
+
     <section class="space-y-4">
       <h2 class="text-2xl font-semibold">Galería</h2>
 

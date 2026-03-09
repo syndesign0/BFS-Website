@@ -12,6 +12,7 @@ export type Proyecto = {
   galeria: string[];
   herramientas?: string[];
   enlaces?: { label: string; href: string }[];
+  videoYoutube?: string;
 };
 
 export const proyectos: Proyecto[] = [
@@ -31,6 +32,7 @@ export const proyectos: Proyecto[] = [
       "/img/proyectos/detour/3.jpg",
     ],
     herramientas: ["Maya", "Rizom UV", "Unreal Engine 5", "Photoshop"],
+    videoYoutube: "https://www.youtube.com/embed/uPQiOZMGfsA?si=qtaZaFmwjBYLBv46",
   },
   {
     slug: "bornfromsyn-denim",
@@ -53,3 +55,4 @@ export const proyectos: Proyecto[] = [
     enlaces: [{ label: "Instagram", href: "https://instagram.com/fromsyn" }],
   },
 ];
+  
