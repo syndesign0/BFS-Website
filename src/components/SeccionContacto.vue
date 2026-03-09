@@ -4,7 +4,7 @@ import { ref, computed } from "vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Instagram, DivideCircle } from "lucide-vue-next";
+import { Mail, Instagram, } from "lucide-vue-next";
 
 const nombre = ref("");
 const email = ref("");
