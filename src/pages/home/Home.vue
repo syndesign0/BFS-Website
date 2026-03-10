@@ -3,6 +3,7 @@ import BarraNav from '@/components/BarraNav.vue';
 import { Button } from "@/components/ui/button";
 import SeccionContacto from "@/components/SeccionContacto.vue";
 import { proyectos } from '@/data/proyectos';
+import TarjetaProyecto from "@/components/TarjetaProyecto.vue";
 
 const destacados = proyectos.slice(0,4)
 </script>
@@ -65,25 +66,21 @@ const destacados = proyectos.slice(0,4)
     </section>
 
     <section class="space-y-4">
-      <h2 class="text-2xl font-semibold">Trabajos Destacados</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl font-semibold">Selección de trabajos</h2>
+    <div class="text-sm text-muted-foreground hidden sm:block">
+      Click para ver detalle
+    </div>
+  </div>
 
-        <RouterLink
-        v-for="p in destacados"
-        :key="p.slug"
-        class="rounded-2xl overflow-hidden border hover:shadow-sm transition"
-        :to="`/portafolio/${p.categoria === 'tresde' ? '3d' : 'ropa'}/${p.slug}`"
-        >
-
-          <img :src="p.portada" alt="p.titulo" class="w-full aspect-video object-cover" />
-          <div class="p-3">
-            <div class="font-medium text-sm">{{ p.titulo }}</div>
-            <div class="text-xs text-muted-foreground mt-1">{{ p.resumen }}</div>
-          </div>
-        </RouterLink>
-
-      </div>
-    </section>
+  <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <TarjetaProyecto
+      v-for="p in destacados"
+      :key="p.slug"
+      :proyecto="p"
+    />
+  </div>
+</section>
 
     <section id="contacto" class="space-y-4">
       <h2 class="text-2xl font-semibold">Contacto</h2>

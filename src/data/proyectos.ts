@@ -16,6 +16,11 @@ export type Proyecto = {
 };
 
 export const proyectos: Proyecto[] = [
+  
+  // ======================
+  // PROYECTOS 3D
+  // ======================
+  
   {
     slug: "hospital3d",
     categoria: "tresde",
@@ -32,7 +37,7 @@ export const proyectos: Proyecto[] = [
       "/img/proyectos/Hospital/3.jpg",
     ],
     herramientas: ["Maya", "Rizom UV", "Unreal Engine 5", "Photoshop"],
-    videoYoutube: "https://www.youtube.com/embed/uPQiOZMGfsA?si=qtaZaFmwjBYLBv46",
+    videoYoutube: "https://www.youtube.com/embed/uPQiOZMGfsA",
   },
   {
     slug: "mercado3d",
@@ -79,10 +84,15 @@ export const proyectos: Proyecto[] = [
     ],
     herramientas: ["Maya", "Arnold Renderer"],
   },
+
+  // ======================
+  // PROYECTOS ROPA
+  // ======================
+
   {
     slug: "bornfromsyn-mud-denim",
     categoria: "ropa",
-    titulo: "BornFromSyn - MUD Denim",
+    titulo: "BornFromSyn — MUD Denim",
     ano: "2025",
     resumen: "Denim con narrativa y detalles por cremalleras.",
     descripcion:
@@ -126,7 +136,7 @@ export const proyectos: Proyecto[] = [
   {
     slug: "bornfromsyn-nox-denim",
     categoria: "ropa",
-    titulo: "BornFromSyn - NOX Denim",
+    titulo: "BornFromSyn — NOX Denim",
     ano: "2025",
     resumen: "Denim conceptual con estética oscura y construcción técnica basada en capas y cremalleras.",
     descripcion:
