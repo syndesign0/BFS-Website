@@ -23,10 +23,12 @@ const etiquetasDisponibles = computed(() => {
 
 const proyectosFiltrados = computed(() => {
   return proyectosCategoria.value.filter((proyecto) => {
+    const texto = busqueda.value.toLowerCase();
+
     const coincideBusqueda =
-      proyecto.titulo.toLowerCase().includes(busqueda.value.toLowerCase()) ||
-      proyecto.resumen.toLowerCase().includes(busqueda.value.toLowerCase()) ||
-      proyecto.descripcion.toLowerCase().includes(busqueda.value.toLowerCase());
+      proyecto.titulo.toLowerCase().includes(texto) ||
+      proyecto.resumen.toLowerCase().includes(texto) ||
+      proyecto.descripcion.toLowerCase().includes(texto);
 
     const coincideEtiqueta =
       etiquetaActiva.value === "Todas" ||
@@ -35,18 +37,58 @@ const proyectosFiltrados = computed(() => {
     return coincideBusqueda && coincideEtiqueta;
   });
 });
+
+const tituloCategoria = computed(() =>
+  props.categoria === "tresde" ? "Portafolio 3D" : "Portafolio de ropa"
+);
+
+const descripcionCategoria = computed(() =>
+  props.categoria === "tresde"
+    ? "Selección de entornos, renders y trabajos centrados en iluminación, composición y desarrollo visual para 3D."
+    : "Selección de prendas conceptuales dentro del universo BornFromSyn, centradas en streetwear, simbología, capas y diseño experimental."
+);
 </script>
 
 <template>
-  <section class="space-y-6">
-    <div class="space-y-2">
-      <h1 class="text-3xl font-semibold">
-        {{ categoria === "tresde" ? "Portafolio 3D" : "Portafolio de ropa" }}
-      </h1>
+  <section class="space-y-8">
+    <div class="rounded-3xl border overflow-hidden">
+      <div class="grid lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="p-8 md:p-10 space-y-4">
+          <p class="text-sm uppercase tracking-[0.25em] text-muted-foreground">
+            {{ categoria === "tresde" ? "3D Visual Development" : "Clothing Brand" }}
+          </p>
 
-      <p class="text-sm text-muted-foreground">
-        Explora los proyectos, filtra por etiqueta o busca por nombre y descripción.
-      </p>
+          <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
+            {{ tituloCategoria }}
+          </h1>
+
+          <p class="text-muted-foreground max-w-2xl text-sm md:text-base">
+            {{ descripcionCategoria }}
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-2">
+            <span
+              v-for="etiqueta in etiquetasDisponibles.slice(1, 6)"
+              :key="etiqueta"
+              class="rounded-full border px-3 py-1 text-sm"
+            >
+              {{ etiqueta }}
+            </span>
+          </div>
+        </div>
+
+        <div class="min-h-55 lg:min-h-full">
+          <img
+            :src="
+              categoria === 'tresde'
+                ? '/img/proyectos/Hospital/portada.jpg'
+                : '/img/proyectos/bornfromsyn/STATIC-JACKET/Static_IGStory1.jpg'
+            "
+            :alt="tituloCategoria"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
     </div>
 
     <div class="grid gap-4 md:grid-cols-[1fr_auto]">

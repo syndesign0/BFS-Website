@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
 import { proyectos } from "@/data/proyectos";
 import ModalGaleria from "@/components/ModalGaleria.vue";
+import TarjetaProyecto from "@/components/TarjetaProyecto.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -23,10 +24,21 @@ const abrirModal = (indice: number) => {
 const cerrarModal = () => {
   modalAbierto.value = false;
 };
+
+const relacionados = computed(() => {
+  if (!proyecto.value) return [];
+  return proyectos
+    .filter(
+      (p) =>
+        p.slug !== proyecto.value!.slug &&
+        p.categoria === proyecto.value!.categoria
+    )
+    .slice(0, 3);
+});
 </script>
 
 <template>
-  <section v-if="proyecto" class="space-y-8">
+  <section v-if="proyecto" class="space-y-10 animate-in-up">
     <Button variant="ghost" class="gap-2 w-fit" @click="router.back()">
       <ArrowLeft class="w-4 h-4" />
       Volver
@@ -37,7 +49,7 @@ const cerrarModal = () => {
         {{ proyecto.categoria === "tresde" ? "Proyecto 3D" : "Proyecto de ropa" }}
       </p>
 
-      <h1 class="text-3xl md:text-4xl font-semibold">
+      <h1 class="text-3xl md:text-5xl font-semibold">
         {{ proyecto.titulo }}
       </h1>
 
@@ -46,30 +58,45 @@ const cerrarModal = () => {
       </p>
     </header>
 
-    <div class="rounded-2xl overflow-hidden border">
+    <div class="rounded-3xl overflow-hidden border">
       <img
         :src="proyecto.portada"
         :alt="proyecto.titulo"
-        class="w-full max-h-137.5 object-cover"
+        class="w-full max-h-162.5 object-cover"
       />
     </div>
 
+    <section v-if="proyecto.videoYoutube" class="space-y-4">
+      <h2 class="text-2xl font-semibold">Vídeo</h2>
+
+      <div class="rounded-3xl overflow-hidden border">
+        <iframe
+          class="w-full aspect-video"
+          :src="proyecto.videoYoutube"
+          title="Vídeo del proyecto"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+
     <section class="grid md:grid-cols-3 gap-4">
-      <div class="p-5 rounded-2xl border">
+      <div class="p-5 rounded-3xl border">
         <h2 class="font-semibold">Resumen</h2>
         <p class="text-sm text-muted-foreground mt-2">
           {{ proyecto.resumen }}
         </p>
       </div>
 
-      <div class="p-5 rounded-2xl border">
+      <div class="p-5 rounded-3xl border">
         <h2 class="font-semibold">Año</h2>
         <p class="text-sm text-muted-foreground mt-2">
           {{ proyecto.ano || "Sin especificar" }}
         </p>
       </div>
 
-      <div class="p-5 rounded-2xl border">
+      <div class="p-5 rounded-3xl border">
         <h2 class="font-semibold">Categoría</h2>
         <p class="text-sm text-muted-foreground mt-2">
           {{ proyecto.categoria === "tresde" ? "3D" : "Ropa / Branding" }}
@@ -105,21 +132,6 @@ const cerrarModal = () => {
       </div>
     </section>
 
-    <section v-if="proyecto.videoYoutube" class="space-y-4">
-  <h2 class="text-2xl font-semibold">Vídeo</h2>
-
-  <div class="rounded-2xl overflow-hidden border">
-    <iframe
-      class="w-full aspect-video"
-      :src="proyecto.videoYoutube"
-      title="Vídeo del proyecto"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
-</section>
-
     <section class="space-y-4">
       <h2 class="text-2xl font-semibold">Galería</h2>
 
@@ -128,13 +140,13 @@ const cerrarModal = () => {
           v-for="(img, index) in proyecto.galeria"
           :key="img"
           type="button"
-          class="rounded-2xl overflow-hidden border text-left hover:opacity-90 transition bg-muted w-full"
+          class="rounded-3xl overflow-hidden border text-left hover:opacity-90 transition bg-muted w-full"
           @click="abrirModal(index)"
         >
           <img
             :src="img"
             :alt="`${proyecto.titulo} ${index + 1}`"
-            class="w-full h-55 object-cover block"
+            class="w-full h-60 object-cover block"
           />
         </button>
       </div>
@@ -161,6 +173,18 @@ const cerrarModal = () => {
       </div>
     </section>
 
+    <section v-if="relacionados.length" class="space-y-4">
+      <h2 class="text-2xl font-semibold">Proyectos relacionados</h2>
+
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <TarjetaProyecto
+          v-for="item in relacionados"
+          :key="item.slug"
+          :proyecto="item"
+        />
+      </div>
+    </section>
+
     <ModalGaleria
       :abierto="modalAbierto"
       :imagenes="proyecto.galeria"
@@ -176,3 +200,20 @@ const cerrarModal = () => {
     </p>
   </section>
 </template>
+
+<style scoped>
+.animate-in-up {
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

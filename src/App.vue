@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-
-
-
+import BarraNav from "@/components/BarraNav.vue";
+import FooterWeb from "@/components/FooterWeb.vue";
 </script>
 
 <template>
-  <main>   
-    <RouterView />
-  </main>
+  <BarraNav />
+  <RouterView />
+  <FooterWeb />
 </template>
-
-<style scoped>
-
-</style>
