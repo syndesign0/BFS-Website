@@ -62,7 +62,7 @@ const estiloBoton = computed(() => {
     <section id="hero-home" class="relative h-[160vh]">
       <div class="sticky top-0 h-screen overflow-hidden">
         <video
-          class="absolute inset-0 h-full w-full object-cover scale-[1.03]"
+          class="absolute inset-0 h-full w-full object-cover scale-[1.03] no-invert"
           autoplay
           muted
           loop

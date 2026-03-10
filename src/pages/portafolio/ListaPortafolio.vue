@@ -85,7 +85,7 @@ const descripcionCategoria = computed(() =>
                 : '/img/proyectos/bornfromsyn/STATIC-JACKET/Static_IGStory1.jpg'
             "
             :alt="tituloCategoria"
-            class="h-full w-full object-cover"
+            class="h-full w-full object-cover no-invert"
           />
         </div>
       </div>

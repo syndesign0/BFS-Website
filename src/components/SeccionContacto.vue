@@ -53,7 +53,7 @@ const enviar = () => {
       <div class="space-y-3 pt-2">
         <div class="flex items-center gap-3">
           <Mail class="w-4 h-4" />
-          <span class="text-sm">tuemail@ejemplo.com</span>
+          <span class="text-sm">syndesign0@gmail.com</span>
         </div>
 
         <div class="flex items-center gap-3">

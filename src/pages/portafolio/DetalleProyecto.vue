@@ -62,7 +62,7 @@ const relacionados = computed(() => {
       <img
         :src="proyecto.portada"
         :alt="proyecto.titulo"
-        class="w-full max-h-162.5 object-cover"
+        class="w-full max-h-162.5 object-cover no-invert"
       />
     </div>
 
@@ -140,7 +140,7 @@ const relacionados = computed(() => {
           v-for="(img, index) in proyecto.galeria"
           :key="img"
           type="button"
-          class="rounded-3xl overflow-hidden border text-left hover:opacity-90 transition bg-muted w-full"
+          class="rounded-3xl overflow-hidden border text-left hover:opacity-90 transition bg-muted w-full no-invert"
           @click="abrirModal(index)"
         >
           <img

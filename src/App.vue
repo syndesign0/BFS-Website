@@ -7,11 +7,13 @@ import FooterWeb from "@/components/FooterWeb.vue";
 <template>
   <BarraNav />
 
-  <RouterView v-slot="{ Component, route }">
-    <Transition name="page" mode="out-in">
-      <component :is="Component" :key="route.fullPath" />
-    </Transition>
-  </RouterView>
+  <div class="theme-scope">
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="page" mode="out-in">
+        <component :is="Component" :key="route.fullPath" />
+      </Transition>
+    </RouterView>
+  </div>
 
   <FooterWeb />
 </template>

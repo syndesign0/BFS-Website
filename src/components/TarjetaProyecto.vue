@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <RouterLink
     :to="`/portafolio/${proyecto.categoria === 'tresde' ? '3d' : 'ropa'}/${proyecto.slug}`"
-    class="group relative block overflow-hidden rounded-3xl border bg-black"
+    class="group relative block overflow-hidden rounded-3xl border bg-black no-invert"
   >
     <div class="relative aspect-[4/5] w-full overflow-hidden">
       <img

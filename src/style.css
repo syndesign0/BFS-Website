@@ -154,3 +154,31 @@ video {
     gap: 4rem;
   }
 }
+
+html,
+body {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+html,
+body {
+  background: white;
+}
+
+html.theme-invert,
+html.theme-invert body {
+  background: #111111;
+}
+
+html.theme-invert .theme-scope {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.theme-invert .no-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+img,
+video {
+  display: block;
+}
