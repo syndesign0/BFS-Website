@@ -5,6 +5,9 @@ import { proyectos } from "@/data/proyectos";
 import TarjetaProyecto from "@/components/TarjetaProyecto.vue";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/composables/useReveal";
+
+useReveal();
 
 const props = defineProps<{ categoria: CategoriaProyecto }>();
 
@@ -51,7 +54,7 @@ const descripcionCategoria = computed(() =>
 
 <template>
   <section class="space-y-8">
-    <div class="rounded-3xl border overflow-hidden">
+    <div class="reveal rounded-3xl border overflow-hidden">
       <div class="grid min-h-[340px] lg:grid-cols-[1.2fr_0.8fr]">
         <div class="flex flex-col justify-center p-8 md:p-10 space-y-4">
           <p class="text-sm uppercase tracking-[0.25em] text-muted-foreground">
@@ -85,13 +88,14 @@ const descripcionCategoria = computed(() =>
                 : '/img/proyectos/bornfromsyn/STATIC-JACKET/Static_IGStory1.jpg'
             "
             :alt="tituloCategoria"
+            loading="lazy"
             class="h-full w-full object-cover no-invert"
           />
         </div>
       </div>
     </div>
 
-    <div class="grid gap-4 md:grid-cols-[1fr_auto]">
+    <div class="reveal grid gap-4 md:grid-cols-[1fr_auto]">
       <Input
         v-model="busqueda"
         placeholder="Buscar proyectos..."
@@ -109,7 +113,7 @@ const descripcionCategoria = computed(() =>
       </Button>
     </div>
 
-    <div class="flex flex-wrap gap-2">
+    <div class="reveal flex flex-wrap gap-2">
       <button
         v-for="etiqueta in etiquetasDisponibles"
         :key="etiqueta"
@@ -126,18 +130,22 @@ const descripcionCategoria = computed(() =>
       </button>
     </div>
 
-    <div class="flex items-center justify-between text-sm text-muted-foreground">
+    <div class="reveal flex items-center justify-between text-sm text-muted-foreground">
       <span>{{ proyectosFiltrados.length }} proyecto(s)</span>
       <span>Filtro actual: {{ etiquetaActiva }}</span>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <TransitionGroup
+      name="grid"
+      tag="div"
+      class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+    >
       <TarjetaProyecto
         v-for="proyecto in proyectosFiltrados"
         :key="proyecto.slug"
         :proyecto="proyecto"
       />
-    </div>
+    </TransitionGroup>
 
     <div
       v-if="proyectosFiltrados.length === 0"
@@ -147,3 +155,20 @@ const descripcionCategoria = computed(() =>
     </div>
   </section>
 </template>
+
+<style scoped>
+.grid-move {
+  transition: transform 0.4s ease;
+}
+
+.grid-enter-active,
+.grid-leave-active {
+  transition: all 0.35s ease;
+}
+
+.grid-enter-from,
+.grid-leave-to {
+  opacity: 0;
+  transform: scale(0.96);
+}
+</style>

@@ -9,13 +9,14 @@ defineProps<{
 <template>
   <RouterLink
     :to="`/portafolio/${proyecto.categoria === 'tresde' ? '3d' : 'ropa'}/${proyecto.slug}`"
-    class="group relative block overflow-hidden rounded-3xl border bg-black no-invert"
+    class="group relative block overflow-hidden rounded-3xl border bg-black no-invert transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
   >
     <div class="relative aspect-[4/5] w-full overflow-hidden">
       <img
         :src="proyecto.portada"
         :alt="proyecto.titulo"
-        class="absolute inset-0 h-full w-full object-cover object-center transition duration-500 group-hover:scale-105"
+        loading="lazy"
+        class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
       />
 
       <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>

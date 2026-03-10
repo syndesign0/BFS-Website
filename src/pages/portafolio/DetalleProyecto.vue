@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { proyectos } from "@/data/proyectos";
 import ModalGaleria from "@/components/ModalGaleria.vue";
 import TarjetaProyecto from "@/components/TarjetaProyecto.vue";
+import { useReveal } from "@/composables/useReveal";
+
+useReveal();
 
 const route = useRoute();
 const router = useRouter();
@@ -44,7 +47,7 @@ const relacionados = computed(() => {
       Volver
     </Button>
 
-    <header class="space-y-3">
+    <header class="reveal space-y-3">
       <p class="text-sm text-muted-foreground uppercase tracking-wide">
         {{ proyecto.categoria === "tresde" ? "Proyecto 3D" : "Proyecto de ropa" }}
       </p>
@@ -58,18 +61,19 @@ const relacionados = computed(() => {
       </p>
     </header>
 
-    <div class="rounded-3xl overflow-hidden border">
+    <div class="reveal rounded-3xl overflow-hidden border">
       <img
         :src="proyecto.portada"
         :alt="proyecto.titulo"
-        class="w-full max-h-162.5 object-cover no-invert"
+        loading="lazy"
+        class="w-full max-h-[650px] object-cover no-invert"
       />
     </div>
 
-    <section v-if="proyecto.videoYoutube" class="space-y-4">
+    <section v-if="proyecto.videoYoutube" class="reveal space-y-4">
       <h2 class="text-2xl font-semibold">Vídeo</h2>
 
-      <div class="rounded-3xl overflow-hidden border">
+      <div class="rounded-3xl overflow-hidden border no-invert">
         <iframe
           class="w-full aspect-video"
           :src="proyecto.videoYoutube"
@@ -81,7 +85,7 @@ const relacionados = computed(() => {
       </div>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-4">
+    <section class="reveal grid gap-4 md:grid-cols-3">
       <div class="p-5 rounded-3xl border">
         <h2 class="font-semibold">Resumen</h2>
         <p class="text-sm text-muted-foreground mt-2">
@@ -104,7 +108,7 @@ const relacionados = computed(() => {
       </div>
     </section>
 
-    <section v-if="proyecto.herramientas?.length" class="space-y-3">
+    <section v-if="proyecto.herramientas?.length" class="reveal space-y-3">
       <h2 class="text-2xl font-semibold">Herramientas</h2>
 
       <div class="flex flex-wrap gap-2">
@@ -118,7 +122,7 @@ const relacionados = computed(() => {
       </div>
     </section>
 
-    <section class="space-y-3">
+    <section class="reveal space-y-3">
       <h2 class="text-2xl font-semibold">Etiquetas</h2>
 
       <div class="flex flex-wrap gap-2">
@@ -132,7 +136,7 @@ const relacionados = computed(() => {
       </div>
     </section>
 
-    <section class="space-y-4">
+    <section class="reveal space-y-4">
       <h2 class="text-2xl font-semibold">Galería</h2>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -146,7 +150,8 @@ const relacionados = computed(() => {
           <img
             :src="img"
             :alt="`${proyecto.titulo} ${index + 1}`"
-            class="w-full h-60 object-cover block"
+            loading="lazy"
+            class="w-full h-[240px] object-cover block"
           />
         </button>
       </div>
@@ -156,7 +161,7 @@ const relacionados = computed(() => {
       </p>
     </section>
 
-    <section v-if="proyecto.enlaces?.length" class="space-y-3">
+    <section v-if="proyecto.enlaces?.length" class="reveal space-y-3">
       <h2 class="text-2xl font-semibold">Enlaces</h2>
 
       <div class="flex flex-col gap-2">
@@ -173,8 +178,8 @@ const relacionados = computed(() => {
       </div>
     </section>
 
-    <section v-if="relacionados.length" class="space-y-4">
-      <h2 class="text-2xl font-semibold">Proyectos relacionados</h2>
+    <section v-if="relacionados.length" class="reveal space-y-4">
+      <h2 class="text-2xl font-semibold">Otros proyectos</h2>
 
       <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <TarjetaProyecto

@@ -3,6 +3,9 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import SeccionContacto from "@/components/SeccionContacto.vue";
 import FeaturedCarousel from "@/components/FeaturedCarousel.vue";
 import { proyectos } from "@/data/proyectos";
+import { useReveal } from "@/composables/useReveal";
+
+useReveal();
 
 const destacados = computed(() => {
   const slugsDestacados = [
@@ -108,32 +111,32 @@ const estiloBoton = computed(() => {
     </section>
 
     <div class="mx-auto max-w-6xl px-4 py-10 space-y-20">
-      <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section class="reveal grid grid-cols-2 gap-4 md:grid-cols-4">
         <div class="rounded-2xl border p-5">
           <p class="text-3xl font-semibold">{{ proyectos.length }}</p>
-          <p class="text-sm text-muted-foreground mt-1">Proyectos</p>
+          <p class="mt-1 text-sm text-muted-foreground">Proyectos</p>
         </div>
         <div class="rounded-2xl border p-5">
           <p class="text-3xl font-semibold">2</p>
-          <p class="text-sm text-muted-foreground mt-1">Disciplinas</p>
+          <p class="mt-1 text-sm text-muted-foreground">Disciplinas</p>
         </div>
         <div class="rounded-2xl border p-5">
           <p class="text-3xl font-semibold">2023–2025</p>
-          <p class="text-sm text-muted-foreground mt-1">Periodo</p>
+          <p class="mt-1 text-sm text-muted-foreground">Periodo</p>
         </div>
         <div class="rounded-2xl border p-5">
           <p class="text-3xl font-semibold">Visual</p>
-          <p class="text-sm text-muted-foreground mt-1">Enfoque</p>
+          <p class="mt-1 text-sm text-muted-foreground">Enfoque</p>
         </div>
       </section>
 
-      <section class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8">
+      <section class="reveal grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="rounded-3xl border p-6 md:p-8 space-y-4">
           <h2 class="text-2xl font-semibold">Perfil profesional</h2>
-          <p class="text-muted-foreground leading-7">
+          <p class="leading-7 text-muted-foreground">
             Soy estudiante de Diseño Creativo y Tecnologías con interés en el desarrollo visual de proyectos 3D, branding y diseño de prendas conceptuales. Mi trabajo se centra en construir identidades visuales con una estética marcada, combinando composición, técnica y narrativa.
           </p>
-          <p class="text-muted-foreground leading-7">
+          <p class="leading-7 text-muted-foreground">
             Dentro del 3D me interesa especialmente la iluminación, la atmósfera y la presentación visual. En moda, exploro prendas conceptuales bajo el universo BornFromSyn, con referencias a simbología, capas, contraste y construcción experimental.
           </p>
         </div>
@@ -155,14 +158,18 @@ const estiloBoton = computed(() => {
         </div>
       </section>
 
-      <section class="space-y-6">
+      <section class="reveal space-y-6">
         <h2 class="text-2xl font-semibold">Herramientas y habilidades</h2>
 
-        <div class="grid md:grid-cols-3 gap-4">
+        <div class="grid gap-4 md:grid-cols-3">
           <div class="rounded-3xl border p-6 space-y-4">
             <h3 class="font-semibold">3D</h3>
             <div class="flex flex-wrap gap-2">
-              <span v-for="skill in skills3D" :key="skill" class="rounded-full border px-3 py-1 text-sm">
+              <span
+                v-for="skill in skills3D"
+                :key="skill"
+                class="rounded-full border px-3 py-1 text-sm"
+              >
                 {{ skill }}
               </span>
             </div>
@@ -171,7 +178,11 @@ const estiloBoton = computed(() => {
           <div class="rounded-3xl border p-6 space-y-4">
             <h3 class="font-semibold">Diseño</h3>
             <div class="flex flex-wrap gap-2">
-              <span v-for="skill in skillsDesign" :key="skill" class="rounded-full border px-3 py-1 text-sm">
+              <span
+                v-for="skill in skillsDesign"
+                :key="skill"
+                class="rounded-full border px-3 py-1 text-sm"
+              >
                 {{ skill }}
               </span>
             </div>
@@ -180,7 +191,11 @@ const estiloBoton = computed(() => {
           <div class="rounded-3xl border p-6 space-y-4">
             <h3 class="font-semibold">Web</h3>
             <div class="flex flex-wrap gap-2">
-              <span v-for="skill in skillsWeb" :key="skill" class="rounded-full border px-3 py-1 text-sm">
+              <span
+                v-for="skill in skillsWeb"
+                :key="skill"
+                class="rounded-full border px-3 py-1 text-sm"
+              >
                 {{ skill }}
               </span>
             </div>
@@ -188,15 +203,15 @@ const estiloBoton = computed(() => {
         </div>
       </section>
 
-      <section class="space-y-4">
+      <section class="reveal space-y-4">
         <div class="flex items-end justify-between gap-4">
           <div>
             <h2 class="text-2xl font-semibold">Selección de trabajos</h2>
-            <p class="text-sm text-muted-foreground mt-1">
+            <p class="mt-1 text-sm text-muted-foreground">
               Una selección en movimiento de proyectos 3D y ropa.
             </p>
           </div>
-          <div class="text-sm text-muted-foreground hidden sm:block">
+          <div class="hidden text-sm text-muted-foreground sm:block">
             Hover para pausar
           </div>
         </div>
@@ -204,7 +219,7 @@ const estiloBoton = computed(() => {
         <FeaturedCarousel :proyectos="destacados as any" />
       </section>
 
-      <section id="contacto" class="space-y-4">
+      <section id="contacto" class="reveal space-y-4">
         <h2 class="text-2xl font-semibold">Contacto</h2>
         <SeccionContacto />
       </section>
