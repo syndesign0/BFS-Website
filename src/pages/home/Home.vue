@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import SeccionContacto from "@/components/SeccionContacto.vue";
-import TarjetaProyecto from "@/components/TarjetaProyecto.vue";
+import FeaturedCarousel from "@/components/FeaturedCarousel.vue";
 import { proyectos } from "@/data/proyectos";
 
-const destacados = proyectos.slice(0, 4);
+const destacados = computed(() => {
+  const slugsDestacados = [
+    "hospital3d",
+    "mercado3d",
+    "bornfromsyn-static-jacket",
+    "bornfromsyn-nox-denim",
+    "bornfromsyn-cross-sweater",
+    "bornfromsyn-fragments-tshirt",
+  ];
+
+  return slugsDestacados
+    .map((slug) => proyectos.find((p) => p.slug === slug))
+    .filter(Boolean);
+});
 
 const skills3D = ["Maya", "Blender", "Unreal Engine 5", "Rizom UV", "Arnold"];
 const skillsDesign = ["Photoshop", "Illustrator", "Branding", "Garment design"];
@@ -49,7 +62,7 @@ const estiloBoton = computed(() => {
     <section id="hero-home" class="relative h-[160vh]">
       <div class="sticky top-0 h-screen overflow-hidden">
         <video
-          class="absolute inset-0 h-full w-full object-cover"
+          class="absolute inset-0 h-full w-full object-cover scale-[1.03]"
           autoplay
           muted
           loop
@@ -62,11 +75,16 @@ const estiloBoton = computed(() => {
 
         <div class="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
           <h1
-            class="text-4xl md:text-6xl lg:text-7xl tracking-[0.15em] font-bold uppercase"
+            class="hero-title text-4xl md:text-6xl lg:text-7xl tracking-[0.15em] font-bold uppercase"
             style="font-family: Helvetica, Arial, sans-serif;"
           >
             BornFromSyn Portfolio
           </h1>
+
+          <p class="hero-subtitle mt-4 max-w-2xl text-sm md:text-base text-white/80">
+            3D, branding y diseño de ropa conceptual con enfoque en identidad visual,
+            composición y atmósfera.
+          </p>
 
           <div class="mt-10 flex flex-wrap items-center justify-center gap-6">
             <RouterLink
@@ -172,19 +190,18 @@ const estiloBoton = computed(() => {
 
       <section class="space-y-4">
         <div class="flex items-end justify-between gap-4">
-          <h2 class="text-2xl font-semibold">Selección de trabajos</h2>
+          <div>
+            <h2 class="text-2xl font-semibold">Selección de trabajos</h2>
+            <p class="text-sm text-muted-foreground mt-1">
+              Una selección en movimiento de proyectos 3D y ropa.
+            </p>
+          </div>
           <div class="text-sm text-muted-foreground hidden sm:block">
-            Click para ver detalle
+            Hover para pausar
           </div>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <TarjetaProyecto
-            v-for="p in destacados"
-            :key="p.slug"
-            :proyecto="p"
-          />
-        </div>
+        <FeaturedCarousel :proyectos="destacados as any" />
       </section>
 
       <section id="contacto" class="space-y-4">
@@ -196,6 +213,14 @@ const estiloBoton = computed(() => {
 </template>
 
 <style scoped>
+.hero-title {
+  animation: titleReveal 1s ease forwards;
+}
+
+.hero-subtitle {
+  animation: subtitleReveal 1.2s ease forwards;
+}
+
 .hero-btn {
   position: relative;
   overflow: hidden;
@@ -232,5 +257,29 @@ const estiloBoton = computed(() => {
 
 .hero-btn:hover {
   transform: translateY(-2px);
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    letter-spacing: 0.28em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.15em;
+  }
+}
+
+@keyframes subtitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
 import { Home } from "lucide-vue-next";
 import {
   NavigationMenu,
@@ -10,6 +11,7 @@ import {
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
 
+const route = useRoute();
 const pastHero = ref(false);
 
 const handleScroll = () => {
@@ -32,19 +34,28 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+const enHome = computed(() => route.path === "/");
+const enPortafolio = computed(() => route.path.startsWith("/portafolio"));
+const en3D = computed(() => route.path.startsWith("/portafolio/3d"));
+const enRopa = computed(() => route.path.startsWith("/portafolio/ropa"));
 </script>
 
 <template>
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
     :class="
-      pastHero
+      pastHero || !enHome
         ? 'bg-[#2b2b2b]/95 backdrop-blur-md border-b border-white/10 text-white shadow-[0_6px_20px_rgba(0,0,0,0.25)]'
         : 'bg-transparent text-white'
     "
   >
     <div class="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-      <RouterLink to="/" class="inline-flex items-center gap-2 hover:opacity-80 transition">
+      <RouterLink
+        to="/"
+        class="inline-flex items-center gap-2 transition"
+        :class="enHome ? 'opacity-100' : 'opacity-80 hover:opacity-100'"
+      >
         <Home class="w-5 h-5" />
         <span class="text-sm font-medium hidden sm:inline">Inicio</span>
       </RouterLink>
@@ -65,6 +76,7 @@ onUnmounted(() => {
           <NavigationMenuItem>
             <NavigationMenuTrigger
               class="bg-transparent text-inherit hover:bg-white/10 data-[state=open]:bg-white/10"
+              :class="enPortafolio ? 'ring-1 ring-white/15' : ''"
             >
               Portafolio
             </NavigationMenuTrigger>
@@ -75,7 +87,8 @@ onUnmounted(() => {
               <div class="grid gap-1 min-w-52">
                 <NavigationMenuLink as-child>
                   <RouterLink
-                    class="px-3 py-2 rounded hover:bg-white/10 transition"
+                    class="px-3 py-2 rounded transition"
+                    :class="en3D ? 'bg-white/15' : 'hover:bg-white/10'"
                     to="/portafolio/3d"
                   >
                     3D
@@ -84,7 +97,8 @@ onUnmounted(() => {
 
                 <NavigationMenuLink as-child>
                   <RouterLink
-                    class="px-3 py-2 rounded hover:bg-white/10 transition"
+                    class="px-3 py-2 rounded transition"
+                    :class="enRopa ? 'bg-white/15' : 'hover:bg-white/10'"
                     to="/portafolio/ropa"
                   >
                     Ropa
