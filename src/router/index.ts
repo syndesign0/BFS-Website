@@ -5,29 +5,37 @@ import PortafolioLayout from "@/pages/portafolio/PortafolioLayout.vue";
 import ListaPortafolio from "@/pages/portafolio/ListaPortafolio.vue";
 import DetalleProyecto from "@/pages/portafolio/DetalleProyecto.vue";
 
-
-
 export const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
 
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+
+    return {
+      top: 0,
+      behavior: "smooth",
+    };
+  },
+
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: "/",
+      name: "inicio",
+      component: Home,
     },
 
     {
       path: "/portafolio",
       component: PortafolioLayout,
       children: [
-        { path: "", redirect: "/portafolio/3d"},
-
+        { path: "", redirect: "/portafolio/3d" },
         {
           path: "3d",
           name: "portafolio-3d",
           component: ListaPortafolio,
-          props: { categoria: "tresde"},
+          props: { categoria: "tresde" },
         },
         {
           path: "ropa",
@@ -35,7 +43,6 @@ export const router = createRouter({
           component: ListaPortafolio,
           props: { categoria: "ropa" },
         },
-
         {
           path: "3d/:slug",
           name: "detalle-3d",
@@ -48,11 +55,12 @@ export const router = createRouter({
           component: DetalleProyecto,
           props: true,
         },
-      ]
+      ],
     },
+
     {
-      path: '/:patchMatch(.*)',
-      redirect: '/'
-    }
-  ]
-})
+      path: "/:pathMatch(.*)*",
+      redirect: "/",
+    },
+  ],
+});
