@@ -52,8 +52,8 @@ const descripcionCategoria = computed(() =>
 <template>
   <section class="space-y-8">
     <div class="rounded-3xl border overflow-hidden">
-      <div class="grid lg:grid-cols-[1.2fr_0.8fr]">
-        <div class="p-8 md:p-10 space-y-4">
+      <div class="grid min-h-[340px] lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="flex flex-col justify-center p-8 md:p-10 space-y-4">
           <p class="text-sm uppercase tracking-[0.25em] text-muted-foreground">
             {{ categoria === "tresde" ? "3D Visual Development" : "Clothing Brand" }}
           </p>
@@ -77,7 +77,7 @@ const descripcionCategoria = computed(() =>
           </div>
         </div>
 
-        <div class="min-h-55 lg:min-h-full">
+        <div class="h-[340px] lg:h-full overflow-hidden">
           <img
             :src="
               categoria === 'tresde'
