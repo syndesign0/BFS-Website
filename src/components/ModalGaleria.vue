@@ -4,7 +4,7 @@ import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import { ChevronLeft, ChevronRight, X } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
 
-const proprs = defineProps<{
+const props = defineProps<{
   abierto: boolean;
   imagenes: string[];
   indiceInicial: number;
@@ -14,28 +14,28 @@ const emit = defineEmits<{
   (e: "cerrar"): void;
 }>();
 
-const indiceActual = ref(proprs.indiceInicial);
+const indiceActual = ref(props.indiceInicial);
 
 watch(
-  () => proprs.indiceInicial,
+  () => props.indiceInicial,
   (nuevoValor) => {
     indiceActual.value = nuevoValor;
   }
 );
 
-const imagenActual= computed(() => proprs.imagenes[indiceActual.value]);
+const imagenActual= computed(() => props.imagenes[indiceActual.value]);
 
 const anterior = () => {
   indiceActual.value =
-    (indiceActual.value - 1 + proprs.imagenes.length) % proprs.imagenes.length;
+    (indiceActual.value - 1 + props.imagenes.length) % props.imagenes.length;
 };
 
 const siguiente = () => {
-  indiceActual.value = (indiceActual.value + 1) % proprs.imagenes.length;
+  indiceActual.value = (indiceActual.value + 1) % props.imagenes.length;
 };
 
 const manejarTeclado = (e: KeyboardEvent) => {
-  if (!proprs.abierto) return;
+  if (!props.abierto) return;
 
   if (e.key === "Escape") emit ("cerrar");
   if (e.key === "ArrowLeft") anterior();
@@ -56,7 +56,7 @@ onUnmounted(() => {
   <Teleport to="body">
     <div
       v-if="abierto"
-      class="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-4"
+      class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
     >
       <div class="relative w-full max-w-6xl">
         <div class="absolute -top-14 right-0">

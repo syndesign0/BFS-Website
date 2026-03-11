@@ -19,7 +19,7 @@ const destacados = computed(() => {
 
   return slugsDestacados
     .map((slug) => proyectos.find((p) => p.slug === slug))
-    .filter(Boolean);
+    .filter((p): p is (typeof proyectos)[number] => Boolean(p));
 });
 
 const skills3D = ["Maya", "Blender", "Unreal Engine 5", "Rizom UV", "Arnold"];
@@ -70,7 +70,7 @@ const estiloBoton = computed(() => {
           muted
           loop
           playsinline
-          src="/video/Birds_Color.mp4"
+          src="/video/Birds_Color_1.mp4"
         />
 
         <div class="absolute inset-0 bg-black/45"></div>
@@ -111,6 +111,25 @@ const estiloBoton = computed(() => {
     </section>
 
     <div class="mx-auto max-w-6xl px-4 py-10 space-y-20">
+
+      <!-- TRABAJOS DESTACADOS -->
+      <section class="reveal space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-semibold">Trabajos destacados</h2>
+            <p class="mt-1 text-sm text-muted-foreground">
+              Una selección en movimiento de proyectos 3D y ropa.
+            </p>
+          </div>
+          <div class="hidden text-sm text-muted-foreground sm:block">
+            Hover para pausar
+          </div>
+        </div>
+
+        <FeaturedCarousel :proyectos="destacados" />
+      </section>
+
+      <!-- STATS -->
       <section class="reveal grid grid-cols-2 gap-4 md:grid-cols-4">
         <div class="rounded-2xl border p-5">
           <p class="text-3xl font-semibold">{{ proyectos.length }}</p>
@@ -130,6 +149,7 @@ const estiloBoton = computed(() => {
         </div>
       </section>
 
+      <!-- PERFIL -->
       <section class="reveal grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="rounded-3xl border p-6 md:p-8 space-y-4">
           <h2 class="text-2xl font-semibold">Perfil profesional</h2>
@@ -158,6 +178,7 @@ const estiloBoton = computed(() => {
         </div>
       </section>
 
+      <!-- SKILLS -->
       <section class="reveal space-y-6">
         <h2 class="text-2xl font-semibold">Herramientas y habilidades</h2>
 
@@ -203,22 +224,7 @@ const estiloBoton = computed(() => {
         </div>
       </section>
 
-      <section class="reveal space-y-4">
-        <div class="flex items-end justify-between gap-4">
-          <div>
-            <h2 class="text-2xl font-semibold">Selección de trabajos</h2>
-            <p class="mt-1 text-sm text-muted-foreground">
-              Una selección en movimiento de proyectos 3D y ropa.
-            </p>
-          </div>
-          <div class="hidden text-sm text-muted-foreground sm:block">
-            Hover para pausar
-          </div>
-        </div>
-
-        <FeaturedCarousel :proyectos="destacados as any" />
-      </section>
-
+      <!-- CONTACTO -->
       <section id="contacto" class="reveal space-y-4">
         <h2 class="text-2xl font-semibold">Contacto</h2>
         <SeccionContacto />
